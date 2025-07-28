@@ -1,0 +1,1 @@
+ <h1> Welcome , Admin {{ $name }} </h1>
