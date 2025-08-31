@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Category;
 
 class AdminController extends Controller
 {
@@ -29,6 +31,56 @@ class AdminController extends Controller
             );
         }
 
-        return view('admin', ["name" => $admin->name]);
+        Session::put('admin', $admin);
+
+        return redirect('dashboard');
+    }
+
+
+    function dashboard ()
+    {
+        $admin = Session::get('admin');
+
+        if ($admin)
+        {
+            return view('admin', ["name" => $admin->name]);
+        }
+
+        else
+        {
+            return redirect('admin-login');
+        }
+
+        
+    }
+
+    function categories ()
+    {
+        $admin = Session::get('admin');
+
+        if ($admin)
+        {
+            return view('categories', ["name" => $admin->name]);
+        }
+
+        else
+        {
+            return redirect('admin-login');
+        }
+    }
+
+
+    function logout ()
+    {
+        Session::forget('admin');
+
+        return redirect('admin-login');
+    }
+
+    function addCategory (Request $request)
+    {
+
+        $admin = Session::get('admin');
+        return $request;
     }
 }
