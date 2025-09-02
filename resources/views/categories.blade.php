@@ -32,6 +32,7 @@
                     <div class="text-red-500">{{$message}}</div>
                     @enderror
                 </div>
+                
                 <button type="submit"
                     class="w-full bg-blue-500 hover:bg-blue-700 rounded-xl px-4 py-2 text-white">Add</button>
             </form>
@@ -41,6 +42,8 @@
     <div class="max-w-200 mx-auto p-4">
         <h1 class="text-2xl text-blue-700 pb-4">Category List</h1>
         <ul class="border border-gray-200 rounded p-4">
+
+
             <li class="pb-4">
                 <ul class="flex justify-between items-center text-2xl font-semibold">
                     <li class="w-30">S. No</li>
@@ -49,6 +52,8 @@
                     <li class="w-30">Action</li>
                 </ul>
             </li>
+
+
             @foreach ($categories as $category)
             <li class="even:bg-gray-200">
                 <ul class="flex justify-between items-center space-y-2">
@@ -62,6 +67,7 @@
                             </svg></a></li>
                 </ul>
             </li>
+
             @endforeach
         </ul>
     </div>
