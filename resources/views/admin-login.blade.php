@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Admin-Login </title>
-    @vite('resources/css/app.css')
-</head>
+@section('hideNavbar', true)
 
+@section('content')
 <body class="bg-gray-200 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm">
         <h2 class="text-2xl text-center text-gray-800 mb-6">Admin Login</h2>
@@ -38,5 +32,4 @@
         </form>
     </div>
 </body>
-
-</html>
+@endsection
