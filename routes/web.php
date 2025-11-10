@@ -4,17 +4,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    return view('home',[]);
+    return view('home');
 });
 
 Route::view('admin-login', 'admin-login');
-Route::post('admin-login', [AdminController::class, 'login']);
-Route::get('dashboard', [AdminController::class, 'dashboard']);
-Route::get('admin-categories',[AdminController::class, 'categories']);
-Route::get('admin-logout',[AdminController::class, 'logout']);
-Route::post('add-category',[AdminController::class, 'addCategory']);
-Route::get('category/delete/{id}',[AdminController::class, 'deleteCategory']);
-Route::get('add-quiz',[AdminController::class, 'addQuiz']);
-Route::post('add-mcq',[AdminController::class, 'addMCQs']);
-Route::get('end-quiz',[AdminController::class, 'endQuiz']);
-Route::get('show-quiz',[AdminController::class, 'showQuiz']);
+
+Route::controller(AdminController::class)->group(function () {
+    Route::post('admin-login', 'login');
+    Route::get('dashboard', 'dashboard');
+    Route::get('admin-categories', 'categories');
+    Route::get('admin-logout', 'logout');
+    Route::post('add-category', 'addCategory');
+    Route::get('category/delete/{id}', 'deleteCategory');
+    Route::get('add-quiz', 'addQuiz');
+    Route::post('add-mcq', 'addMCQs');
+    Route::get('end-quiz', 'endQuiz');
+    Route::get('show-quiz', 'showQuiz');
+});

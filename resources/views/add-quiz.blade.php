@@ -30,7 +30,7 @@
                 @else
                 <p class="text-green-500 font-bold text-center">Quiz: {{session('quizDetails')->name}}</p>
                 <p class="text-green-500 font-bold text-center">The number of MCQ's are added: {{$totalMCQs}}</p>
-                    @if ($totalMCQs>0)
+                    @if ($totalMCQs > 0)
                     <p class="text-indigo-600 font-bold text-center"><a href="">Show All MCQ's</a></p>
                     @endif
                 <h2 class="text-2xl text-center text-gray-800 my-4">Add MCQs</h2>

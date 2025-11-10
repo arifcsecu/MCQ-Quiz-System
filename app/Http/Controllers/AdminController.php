@@ -15,7 +15,7 @@ class AdminController extends Controller
     function login(Request $request)
     {
 
-        $validation = $request->validate([
+        $request->validate([
             'name' => 'required',
             'password' => 'required',
         ]);
@@ -29,7 +29,7 @@ class AdminController extends Controller
 
         if (!$admin)
         {
-            $validation = $request->validate(
+            $request->validate(
                 ["user" => "required"],
                 ["user.required" => "user doesn't exist"]
             );
@@ -49,7 +49,6 @@ class AdminController extends Controller
         {
             return view('admin', ["name" => $admin->name]);
         }
-
         else
         {
             return redirect('admin-login');
@@ -59,15 +58,17 @@ class AdminController extends Controller
     function categories()
     {
 
-        $categories = Category::get();
+        $categories = Category::all();
 
         $admin = Session::get('admin');
 
         if ($admin)
         {
-            return view('categories', ["name" => $admin->name, "categories" => $categories]);
+            return view('categories', [
+                "name" => $admin->name,
+                "categories" => $categories
+            ]);
         }
-        
         else
         {
             return redirect('admin-login');
@@ -85,7 +86,7 @@ class AdminController extends Controller
     function addCategory(Request $request)
     {
 
-        $validation = $request->validate([
+        $request->validate([
             "category" => "required | min:3 | unique:categories,name"
         ]);
 
@@ -98,6 +99,9 @@ class AdminController extends Controller
         if ($category->save())
         {
             Session::flash('category', "Category " . $request->category . " Added");
+
+            // another way to write
+            // Session::flash('category', "Category {$request->category} Added");
         }
 
         return redirect("admin-categories");
@@ -119,38 +123,46 @@ class AdminController extends Controller
     {
 
         $admin = Session::get('admin');
-        $categories = Category::get();
 
-        $totalMCQs =0;
+        $categories = Category::all();
 
-        if ($admin)
-        {
+        $totalMCQs = 0;
+
+        if ($admin) {
 
             $quizName =  request('quiz');
             $categoryId =  request('category_id');
 
-            if ($quizName && $categoryId && !Session::has('quizDetails')) {
+            if ($quizName && $categoryId && !Session::has('quizDetails'))
+            {
                 $quiz = new Quiz();
                 $quiz->name = $quizName;
                 $quiz->category_id = $categoryId;
 
-                if ($quiz->save()) {
+                if ($quiz->save())
+                {
                     Session::put('quizDetails', $quiz);
                 }
             }
+
             else
             {
                 $quiz = Session::get('quizDetails');
-                
+
                 if ($quiz)
                 {
-                    $totalMCQs = Mcq::where('quiz_id',$quiz->id)->count();
+                    $totalMCQs = Mcq::where('quiz_id', $quiz->id)->count();
                 }
             }
-            return view('add-quiz', ["name" => $admin->name, "categories" => $categories, "totalMCQs" => $totalMCQs]);
+
+            return view('add-quiz', [
+                "name" => $admin->name,
+                "categories" => $categories,
+                "totalMCQs" => $totalMCQs
+            ]);
         }
 
-        else
+        else            
         {
             return redirect('admin-login');
         }
@@ -205,8 +217,5 @@ class AdminController extends Controller
         return redirect("/admin-categories");
     }
 
-    function showQuiz ()
-    {
-        
-    }
+    function showQuiz() {}
 }

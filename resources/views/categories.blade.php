@@ -25,7 +25,7 @@
                         <input type="text" name="category" id="admin" placeholder="Enter Category name"
                             class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
                         @error('category')
-                        <div class="text-red-500">{{$message}}</div>
+                        <div class="text-red-500">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -65,7 +65,6 @@
                             </svg></a></li>
                 </ul>
             </li>
-
             @endforeach
         </ul>
     </div>
