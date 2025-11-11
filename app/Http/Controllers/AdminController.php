@@ -201,7 +201,7 @@ class AdminController extends Controller
         {
             if ($request->submit == "add-more")
             {
-                return redirect(url()->previous());
+                return redirect()->back();
             }
             else
             {
@@ -214,8 +214,28 @@ class AdminController extends Controller
     function endQuiz()
     {
         Session::forget('quizDetails');
+
         return redirect("/admin-categories");
     }
 
-    function showQuiz() {}
+    function showQuiz($id) {
+
+        $admin = Session::get('admin');
+
+        $mcqs = Mcq::where('quiz_id', $id)->get();
+
+        if ($admin)
+        {
+            return view('show-quiz', [
+                "name" => $admin->name,
+                "mcqs" => $mcqs
+            ]);
+        }
+
+        else
+        {
+            return redirect('admin-login');
+        }
+
+    }
 }

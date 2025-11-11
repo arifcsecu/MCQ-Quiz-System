@@ -19,5 +19,5 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('add-quiz', 'addQuiz');
     Route::post('add-mcq', 'addMCQs');
     Route::get('end-quiz', 'endQuiz');
-    Route::get('show-quiz', 'showQuiz');
+    Route::get('show-quiz/{id}', 'showQuiz');
 });
